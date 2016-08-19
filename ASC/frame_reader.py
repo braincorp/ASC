@@ -27,6 +27,7 @@
 #                                   doing anything the license permits.
 # ==================================================================================
 import cv2
+import os.path
 import random
 
 
@@ -69,7 +70,7 @@ class FrameReader(object):
                 if full_file == None:
                     full_file = file
             except:
-                print "Could not download training video", file
+                print "Could not download training video", file, "using local copy instead."
                 full_file = file
             if full_file[-4:] == '.pkl':
                 from tracker_base.labeled_movie import FrameCollection
@@ -83,6 +84,8 @@ class FrameReader(object):
             else:
                 if cut_back > 0:
                     print "Warning, ignoring cut_back while reading non-pkl videos."
+                    
+                assert os.path.exists(full_file), "Error, file not found: "+full_file
                 # use opencv to read everything else
                 cap = cv2.VideoCapture(full_file)
                 while(cap.isOpened()):

@@ -12,10 +12,13 @@ Then clone the repo and run the following commands:
 ```
 git clone git@github.com:braincorp/ASC
 cd ASC
+
+sudo ./install_ubuntu_dependencies.sh
+
 ./setup.sh
 
 source venv/bin/activate
-python ASC/train_sparse_coding.py [list of video files] [total number of frames]
+python ASC/train_sparse_coding.py [list of video files separated by spaces] [total number of frames]
 
 ```
 
