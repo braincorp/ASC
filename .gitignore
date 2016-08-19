@@ -1,0 +1,10 @@
+*~
+*.bak
+venv/
+
+*.egg-info
+*.pyxbldc
+*.pkl
+
+build/
+dist/

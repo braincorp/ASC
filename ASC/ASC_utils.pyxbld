@@ -1,0 +1,20 @@
+# ============================================================================
+# Copyright 2015 BRAIN Corporation. All rights reserved. This software is
+# provided to you under BRAIN Corporation's Beta License Agreement and
+# your use of the software is governed by the terms of that Beta License
+# Agreement, found at http://www.braincorporation.com/betalicense.
+# ============================================================================
+
+import os.path
+
+def make_ext(modname, pyxfilename):
+    from distutils.extension import Extension
+    ext = Extension(name = modname,
+                    sources=[pyxfilename],
+                    extra_compile_args=['-fopenmp','-march=native','-funroll-loops'],
+                    extra_link_args=['-fopenmp','-march=native'],
+                    )
+    return ext
+
+def make_setup_args():
+    return dict(script_args=["--verbose"])
