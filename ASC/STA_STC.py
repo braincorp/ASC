@@ -1,6 +1,7 @@
 import os
 import sys
 import numpy as np
+import numpy.linalg
 import pyximport
 pyximport.install(reload_support=True)
 import ASC
@@ -21,10 +22,10 @@ if __name__ == '__main__':
     V1C_STAs = 0
     V1S_STCs = 0
     V1C_STCs = 0
-    outer_stim = np.zeros((num_frames, SM.Vs[0].N * SM.Vs[0].N))
+    outer_stim = np.zeros((num_frames, SM.Vs[0].m * SM.Vs[0].m))
 
     for k in range(100):
-        stim=np.random.randn(num_frames, SM.Vs[0].N)
+        stim=np.random.randn(num_frames, SM.Vs[0].m)
         V1S=[]
         V1C=[]
         im = np.zeros((80, 80, 3), dtype=np.uint8)
@@ -54,8 +55,8 @@ if __name__ == '__main__':
     # save data for later
     pickle.dump((V1S_STCs, V1C_STCs), open("STCs.pkl", "w"))
 
-    V1S_STCs=V1S_STCs.reshape((-1, SM.Vs[0].N, SM.Vs[0].N))
-    V1C_STCs=V1C_STCs.reshape((-1, SM.Vs[0].N, SM.Vs[0].N))
+    V1S_STCs=V1S_STCs.reshape((-1, SM.Vs[0].m, SM.Vs[0].m))
+    V1C_STCs=V1C_STCs.reshape((-1, SM.Vs[0].m, SM.Vs[0].m))
 
     for i in range(0, SM.Vs[0].K, SM.Vs[0].K/20):
         u, e, v = numpy.linalg.svd(V1C_STCs[i,:,:].squeeze(), full_matrices=0, compute_uv=1)
